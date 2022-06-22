@@ -1,0 +1,24 @@
+Type: Compendium
+Package: UncVal
+Title: Validation of prediction uncertainty
+Version: 0.1
+Authors@R: 
+    person(given = "Pascal",
+           family = "PERNOT",
+           role = c("aut", "cre"),
+           email = "pascal.pernot@cnrs.fr",
+           comment = c(ORCID = "0000-0001-8586-6222"))
+Description: Validation of prediction uncertainty.
+License: CECILL_V2.1
+Depends: 
+    devtools,
+    ErrViewLib,
+    inlmisc,
+    shiny,
+    shinycssloaders,
+    shinyFiles,
+    shinythemes,
+Remotes: 
+    ppernot/ErrViewLib
+Encoding: UTF-8
+LazyData: true
