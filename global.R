@@ -16,3 +16,7 @@ plotWidth  <- 750
 
 # Graphical parameters ####
 gPars = ErrViewLib::setgPars('shiny')
+
+# Fine tune graph. params
+gPars$cex = 1.5
+gPars$mar[3] = 2

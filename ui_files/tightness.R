@@ -7,16 +7,19 @@ sidebarLayout(
       'binWidthTight',
       label = 'Bin width (%) for local stats',
       min   =   0,
-      max   = 100,
-      step  =  10,
-      value =   0
+      max   =  50,
+      step  =   5,
+      value =  15
     ),
     checkboxGroupInput(
       'choicesTight',
-      label = 'Plot type',
-      choices = c('logX','slide'),
-      selected = NULL,
-      inline = TRUE
+      label = 'Plot type/options',
+      choices = list(
+        'X log axis' ='logX',
+        'Sliding window' = 'slide',
+        'Reliab. Diagram' = 'relDiag',
+        'Bootstrap RD' = 'boot'),
+      selected = NULL
     )
   ),
   mainPanel(

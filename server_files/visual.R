@@ -44,9 +44,25 @@ output$plotVisual <- renderPlot({
     ylim = ylim,
     gPars = gPars
   )
+
 },
 width = plotWidth, height = plotHeight)
 
+
+observeEvent(input$choicesVis, {
+  if('logX' %in% input$choicesVis) {
+    updateCheckboxGroupInput(
+      inputId  = 'choicesTight',
+      selected =  c(input$choicesTight, 'logX')
+    )
+  } else {
+    sel = input$choicesTight
+    updateCheckboxGroupInput(
+      inputId  = 'choicesTight',
+      selected =  within(sel, rm('logX'))
+    )
+  }
+})
 
 observeEvent(input$Visual_dblclick, {
   brush <- input$Visual_brush

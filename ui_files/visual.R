@@ -7,16 +7,18 @@ sidebarLayout(
       'binWidthVis',
       label = 'Bin width (%) for running stats',
       min   =   0,
-      max   = 100,
-      step  =  10,
-      value =   0
+      max   =  50,
+      step  =   5,
+      value =  15
     ),
     checkboxGroupInput(
       'choicesVis',
       label = 'Plot type',
-      choices = c('logX','logY','cumMAE'),
-      selected = NULL,
-      inline = TRUE
+      choices = list(
+        'X log axis' ='logX',
+        'Use log(|E|)' = 'logY',
+        'Cumul. MAE curve' = 'cumMAE'),
+      selected = NULL
     )
   ),
   mainPanel(

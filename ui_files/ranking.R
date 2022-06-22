@@ -1,7 +1,7 @@
 sidebarLayout(
   sidebarPanel(
     width = sideWidth,
-    h4("Ranking analysis"),
+    h4("Ranking-based validation"),
     hr( style="border-color: #666;"),
     # sliderInput(
     #   'binWidthTight',
@@ -13,10 +13,9 @@ sidebarLayout(
     # ),
     checkboxGroupInput(
       'choicesRank',
-      label = 'Plot type',
-      choices = c('oracle'),
-      selected = NULL,
-      inline = TRUE
+      label = 'Plot options',
+      choices = list('Oracle curve'='oracle'),
+      selected = NULL
     )
   ),
   mainPanel(

@@ -7,10 +7,7 @@ output$plotTightness <- renderPlot({
     )
   )
 
-  X = uE
   xlab = paste0('uE [',dataUnits(),']')
-
-  Y = E/uE
 
   if(input$binWidthTight == 0)
     nBin = NULL
@@ -21,19 +18,53 @@ output$plotTightness <- renderPlot({
   xlim = rangesTightness$x
   ylim = rangesTightness$y
 
-  ErrViewLib::plotLZV(
-    X, Y,
-    logX = 'logX' %in% input$choicesTight,
-    nBin = nBin,
-    method = 'cho',
-    slide = 'slide' %in% input$choicesTight,
-    xlim = xlim,
-    ylim = ylim,
-    gPars = gPars
-  )
+  if('relDiag' %in% input$choicesTight) {
+
+    boot = 'boot' %in% input$choicesTight
+    ErrViewLib::plotCalVar(
+      uE, E,
+      logX = 'logX' %in% input$choicesTight,
+      nBin = nBin,
+      # slide = 'slide' %in% input$choicesTight,
+      nBoot = if(boot) 1000 else 0,
+      xlim = xlim,
+      ylim = ylim,
+      title = 'Reliability Diagram',
+      gPars = gPars
+    )
+
+  } else {
+    ErrViewLib::plotLZV(
+      uE, E/uE,
+      logX = 'logX' %in% input$choicesTight,
+      nBin = nBin,
+      method = 'cho',
+      slide = 'slide' %in% input$choicesTight,
+      xlim = xlim,
+      xlab = 'Prediction uncertainty, uE',
+      ylim = ylim,
+      title = 'Local Z Variance analysis',
+      gPars = gPars
+    )
+  }
+
 },
 width = plotWidth, height = plotHeight)
 
+observeEvent(input$choicesTight, {
+  if('logX' %in% input$choicesTight) {
+    updateCheckboxGroupInput(
+      inputId  = 'choicesVis',
+      selected =  c(input$choicesVis, 'logX')
+    )
+  } else {
+    sel = input$choicesVis
+    updateCheckboxGroupInput(
+      inputId  = 'choicesVis',
+      selected =  within(sel, rm('logX'))
+    )
+  }
+})
 
 observeEvent(input$Tightness_dblclick, {
   brush <- input$Tightness_brush

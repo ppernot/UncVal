@@ -15,6 +15,10 @@ output$plotRanking <- renderPlot({
     oracle = 'oracle' %in% input$choicesRank,
     xlim = xlim,
     ylim = ylim,
+    title = paste0(
+      'Confidence Curve / RCC(uE,|E|) = ',
+      signif(cor(uE,abs(E),method = 'spearman'),2)
+    ),
     gPars = gPars
   )
 },
