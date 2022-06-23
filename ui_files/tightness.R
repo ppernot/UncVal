@@ -1,7 +1,7 @@
 sidebarLayout(
   sidebarPanel(
     width = sideWidth,
-    h4("Tightness analysis"),
+    h4("Calibration/Tightness"),
     hr( style="border-color: #666;"),
     sliderInput(
       'binWidthTight',

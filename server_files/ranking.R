@@ -13,6 +13,9 @@ output$plotRanking <- renderPlot({
   ErrViewLib::plotConfidence(
     E, uE,
     oracle = 'oracle' %in% input$choicesRank,
+    normal = 'normal' %in% input$choicesRank,
+    conf_normal = 'normalCI' %in% input$choicesRank,
+    rep_normal = max(50,input$repNormRank),
     xlim = xlim,
     ylim = ylim,
     title = paste0(
