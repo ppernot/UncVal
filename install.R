@@ -1,5 +1,5 @@
 
-install.packages(devtool)
+install.packages(devtools)
 install.packages(shiny)
 install.packages(shinFiles)
 install.packages(inlmisc)
