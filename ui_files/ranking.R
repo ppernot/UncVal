@@ -2,43 +2,77 @@ sidebarLayout(
   sidebarPanel(
     width = sideWidth,
     h4("Ranking-based validation"),
-    hr( style="border-color: #666;"),
-    # sliderInput(
-    #   'binWidthTight',
-    #   label = 'Bin width (%) for local stats',
-    #   min   =   0,
-    #   max   = 100,
-    #   step  =  10,
-    #   value =   0
-    # ),
+    hr(style="border-color: #666;"),
     checkboxGroupInput(
       'choicesRank',
       label = 'Plot options',
       choices = list(
         'Oracle curve' = 'oracle',
-        'Normal curve' = 'normal',
-        'Normal CI' = 'normalCI'
+        'Ideal curve'  = 'ideal',
+        'Ideal CI'     = 'idealCI'
         ),
-      selected = NULL
+      selected = 'ideal'
     ),
-    sliderInput(
-      'repNormRank',
-      label = 'Sample size for Normal Curve',
-      min   =   0,
-      max   = 500,
-      step  =  50,
-      value =  50
+    checkboxInput(
+      "advancedRank",
+      label= "Advanced params",
+      value = FALSE
     ),
-
+    conditionalPanel(
+      condition = "input.advancedRank",
+      radioButtons(
+        'distIdealRank',
+        label = 'Distribution for Ideal curve',
+        choices = list(
+          'Normal'  = 'Normal',
+          't(df=4)' = 'T4',
+          'Laplace' = 'Laplace',
+          'Uniform' = 'Uniform',
+          'Normp(p=4)' = 'Normp4'
+        ),
+        inline = FALSE,
+        selected = 'Normal'
+      ),
+      sliderInput(
+        'repIdealRank',
+        label = 'Sample size for Ideal Curve',
+        min   =   0,
+        max   = 500,
+        step  =  50,
+        value =  50
+      ),
+      radioButtons(
+        'statRank',
+        label = 'Error statistic',
+        choices = list(
+          'MAE'  = 'MAE',
+          'RMSD' = 'RMSD',
+          'Q95'  = 'Q95'
+        ),
+        inline = TRUE,
+        selected = 'MAE'
+      )
+    )
   ),
   mainPanel(
     width = mainWidth,
-    plotOutput(
-      "plotRanking",
-      dblclick = "Ranking_dblclick",
-      brush = brushOpts(
-        id = "Ranking_brush",
-        resetOnNew = TRUE
+    fluidRow(
+      column(
+        8,
+        plotOutput(
+          "plotRanking",
+          dblclick = "Ranking_dblclick",
+          brush = brushOpts(
+            id = "Ranking_brush",
+            resetOnNew = TRUE
+          )
+        )
+      ),
+      column(
+        4,
+        wellPanel(
+          htmlOutput("textRanking")
+        )
       )
     )
   )

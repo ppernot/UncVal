@@ -11,24 +11,42 @@ sidebarLayout(
       step  =   5,
       value =  15
     ),
-    checkboxGroupInput(
-      'choicesVis',
+    radioButtons(
+      'typeVis',
       label = 'Plot type',
       choices = list(
-        'X log axis' ='logX',
-        'Use log(|E|)' = 'logY',
-        'Cumul. MAE curve' = 'cumMAE'),
-      selected = NULL
+        'E vs uE' = 'EvsuE',
+        'Z vs V'  = 'ZvsV',
+        'log(|E|) vs uE' = 'logEvsuE'
+      ),
+      inline = FALSE,
+      selected = 'EvsuE'
+    ),
+    checkboxInput(
+      'logVis',
+      label = 'log X-axis',
+      value = FALSE
     )
   ),
   mainPanel(
     width = mainWidth,
-    plotOutput(
-      "plotVisual",
-      dblclick = "Visual_dblclick",
-      brush = brushOpts(
-        id = "Visual_brush",
-        resetOnNew = TRUE
+    fluidRow(
+      column(
+        8,
+        plotOutput(
+          "plotVisual",
+          dblclick = "Visual_dblclick",
+          brush = brushOpts(
+            id = "Visual_brush",
+            resetOnNew = TRUE
+          )
+        )
+      ),
+      column(
+        4,
+        wellPanel(
+          htmlOutput("textVisual")
+        )
       )
     )
   )

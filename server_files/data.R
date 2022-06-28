@@ -18,11 +18,24 @@ output$selectMsg <- renderPrint({
     header=TRUE,
     data.table = FALSE)
 
+  E  <<- NULL
+  uE <<- NULL
+  V  <<- NULL
   cnames = colnames(data)
   if('E' %in% cnames)
     E <<- data[,'E']
   if('uE' %in% cnames)
     uE <<- data[,'uE']
+  if('V' %in% cnames) {
+    V <<- data[,'V']
+    if('R' %in% cnames)
+      E <<- data[,'R'] - V
+    if('uV' %in% cnames) {
+      uE <<- data[,'uV']
+      if('uR' %in% cnames)
+        uE <<- sqrt(data[,'uR']^2 + data[,'uV']^2)
+    }
+  }
 
   dataUnits(input$units)
 
@@ -40,8 +53,7 @@ output$howTo <- renderText({
   <ul style="list-style-type:none;">
     <li> <b>Data:</b> Choose a csv datafile.
     <li> <b>Visual check:</b> Simple visualizations of the data.
-    <li> <b>Calibration:</b> Calibration statistics.
-    <li> <b>Tightness:</b> Tightness validation.
+    <li> <b>C/T:</b> Calibration/Tightness validation.
     <li> <b>Ranking:</b> ranking-based validation.
   </ul>'
 })

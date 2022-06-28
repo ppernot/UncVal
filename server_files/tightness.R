@@ -1,3 +1,12 @@
+output$textTightness <- renderUI({
+  list(
+    h4("Explanations"),
+    hr( style="border-color: #666;"),
+    "blabla..."
+  )
+})
+
+
 rangesTightness <- reactiveValues(x = NULL, y = NULL)
 output$plotTightness <- renderPlot({
   validate(
@@ -34,14 +43,20 @@ output$plotTightness <- renderPlot({
     )
 
   } else {
+    X = uE
+    xlab = 'Prediction uncertainty, uE'
+    if('xV' %in% input$choicesTight) {
+      X = V
+      xlab = 'Calculated Value, V'
+    }
     ErrViewLib::plotLZV(
-      uE, E/uE,
-      logX = 'logX' %in% input$choicesTight,
+      X, E/uE,
+      logX = if (min(X) > 0) 'logX' %in% input$choicesTight else FALSE,
       nBin = nBin,
       method = 'cho',
       slide = 'slide' %in% input$choicesTight,
       xlim = xlim,
-      xlab = 'Prediction uncertainty, uE',
+      xlab = xlab,
       ylim = ylim,
       title = 'Local Z Variance analysis',
       gPars = gPars
@@ -51,20 +66,20 @@ output$plotTightness <- renderPlot({
 },
 width = plotWidth, height = plotHeight)
 
-observeEvent(input$choicesTight, {
-  if('logX' %in% input$choicesTight) {
-    updateCheckboxGroupInput(
-      inputId  = 'choicesVis',
-      selected =  c(input$choicesVis, 'logX')
-    )
-  } else {
-    sel = input$choicesVis
-    updateCheckboxGroupInput(
-      inputId  = 'choicesVis',
-      selected =  within(sel, rm('logX'))
-    )
-  }
-})
+# observeEvent(input$choicesTight, {
+#   if('logX' %in% input$choicesTight) {
+#     updateCheckboxGroupInput(
+#       inputId  = 'choicesVis',
+#       selected =  c(input$choicesVis, 'logX')
+#     )
+#   } else {
+#     sel = input$choicesVis
+#     updateCheckboxGroupInput(
+#       inputId  = 'choicesVis',
+#       selected =  within(sel, rm('logX'))
+#     )
+#   }
+# })
 
 observeEvent(input$Tightness_dblclick, {
   brush <- input$Tightness_brush

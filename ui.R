@@ -11,6 +11,9 @@ function(request) {
     theme = shinythemes::shinytheme(
       c("cosmo", "cerulean", "spacelab", "yeti")[3]
     ),
+    tags$head(
+      tags$style(HTML("hr {border-top: 1px solid #000000;}"))
+    ),
     tabPanel(
       title = "Data",
       source_ui("data.R")

@@ -15,7 +15,8 @@ sidebarLayout(
       'choicesTight',
       label = 'Plot type/options',
       choices = list(
-        'X log axis' ='logX',
+        'Z vs V' = 'xV',
+        'X log axis' = 'logX',
         'Sliding window' = 'slide',
         'Reliab. Diagram' = 'relDiag',
         'Bootstrap RD' = 'boot'),
@@ -24,12 +25,23 @@ sidebarLayout(
   ),
   mainPanel(
     width = mainWidth,
-    plotOutput(
-      "plotTightness",
-      dblclick = "Tightness_dblclick",
-      brush = brushOpts(
-        id = "Tightness_brush",
-        resetOnNew = TRUE
+    fluidRow(
+      column(
+        8,
+        plotOutput(
+          "plotTightness",
+          dblclick = "Tightness_dblclick",
+          brush = brushOpts(
+            id = "Tightness_brush",
+            resetOnNew = TRUE
+          )
+        )
+      ),
+      column(
+        4,
+        wellPanel(
+          htmlOutput("textTightness")
+        )
       )
     )
   )

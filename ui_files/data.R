@@ -1,8 +1,8 @@
 sidebarLayout(
   sidebarPanel(
     width = sideWidth,
-    h4("Select Data FIle"),
-    hr( style="border-color: #666;"),
+    h4("Select Data File"),
+    hr(style="border-color: #666;"),
     fileInput(
       "dataFile",
       label = "Choose CSV File",
@@ -17,7 +17,7 @@ sidebarLayout(
       label = "Units",
       value = 'a.u.'
     ),
-    hr( style="border-color: #666;"),
+    hr(style="border-color: #666;"),
     wellPanel(
       h5("Author      : P. Pernot"),
       h5("Affiliation : CNRS"),

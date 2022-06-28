@@ -1,3 +1,11 @@
+output$textVisual <- renderUI({
+  list(
+    h4("Explanations"),
+    hr( style="border-color: #666;"),
+    "blabla..."
+  )
+})
+
 rangesVisual <- reactiveValues(x = NULL, y = NULL)
 output$plotVisual <- renderPlot({
   validate(
@@ -7,38 +15,46 @@ output$plotVisual <- renderPlot({
     )
   )
 
-  X = uE
-  xlab = paste0('uE [',dataUnits(),']')
+  ylab = NULL
+  runMode = FALSE
+  runQuant = TRUE
 
+  X = uE
   Y = E
+  logY = FALSE
+  xlab = paste0('uE [',dataUnits(),']')
+  type = 'prop'
+  if(input$typeVis == 'ZvsV') {
+    X = V
+    Y = E/uE
+    xlab = 'Calculated Value, V'
+    ylab = 'Z-score'
+    type = 'horiz'
+  }
 
   if(input$binWidthVis == 0)
     nBin = NULL
   else
     nBin = 100 / input$binWidthVis
 
-  ylab = NULL
-  runMode = FALSE
-  runQuant = TRUE
-  logY = 'logY' %in% input$choicesVis
-  if(logY) {
+  if(input$typeVis == 'logEvsuE') {
+    logY = TRUE
     runMode = TRUE
     runQuant = FALSE
-    ylab = 'log |E|'
+    ylab = 'log10 |E|'
   }
-
 
   xlim = rangesVisual$x
   ylim = rangesVisual$y
 
   ErrViewLib::plotEvsPU(
     X, Y,
-    logX = 'logX' %in% input$choicesVis,
-    logY = 'logY' %in% input$choicesVis,
+    logX = input$logVis,
+    logY = logY,
+    type = type,
     nBin = nBin,
     runQuant = runQuant,
     runMode = runMode,
-    cumMAE = 'cumMAE' %in% input$choicesVis,
     ylab = ylab,
     xlim = xlim,
     ylim = ylim,
@@ -49,20 +65,20 @@ output$plotVisual <- renderPlot({
 width = plotWidth, height = plotHeight)
 
 
-observeEvent(input$choicesVis, {
-  if('logX' %in% input$choicesVis) {
-    updateCheckboxGroupInput(
-      inputId  = 'choicesTight',
-      selected =  c(input$choicesTight, 'logX')
-    )
-  } else {
-    sel = input$choicesTight
-    updateCheckboxGroupInput(
-      inputId  = 'choicesTight',
-      selected =  within(sel, rm('logX'))
-    )
-  }
-})
+# observeEvent(input$choicesVis, {
+#   if('logX' %in% input$choicesVis) {
+#     updateCheckboxGroupInput(
+#       inputId  = 'choicesTight',
+#       selected =  c(input$choicesTight, 'logX')
+#     )
+#   } else {
+#     sel = input$choicesTight
+#     updateCheckboxGroupInput(
+#       inputId  = 'choicesTight',
+#       selected =  within(sel, rm('logX'))
+#     )
+#   }
+# })
 
 observeEvent(input$Visual_dblclick, {
   brush <- input$Visual_brush
