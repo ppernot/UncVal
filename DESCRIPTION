@@ -12,12 +12,13 @@ Description: Validation of prediction uncertainty.
 License: CECILL_V2.1
 Depends: 
     devtools,
-    ErrViewLib,
     inlmisc,
     shiny,
     shinycssloaders,
     shinyFiles,
     shinythemes,
+    data.table,
+    boot
 Remotes: 
     ppernot/ErrViewLib
 Encoding: UTF-8

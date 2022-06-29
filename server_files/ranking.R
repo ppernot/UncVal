@@ -12,16 +12,17 @@ output$textRanking <- renderUI({
            This is often an irrealistic error model,
            and no validation dataset can match the
            Oracle curve.
-      <li> <b>Ideal</b>: an Ideal curve is built by taking
+      <li> <b>Prob. ref.</b>: an probabilistic reference
+           curve is built by taking
            the uncertainties from the dataset and
            generating ideal errors such as E~N(0,uE).
            This is more realistic than an Oracle.
            A confidence interval can be built around the
-           Ideal curve by repeating the sampling of
-           ideal errors. <em>Advanced parameters</em>
-           enable to appreciate the effect of the ideal
-           errors generative distribution and of the sampling
-           size.
+           prob. ref. curve by repeating the sampling of
+           errors. <em>Advanced parameters</em>
+           enable to appreciate the effect of the peob. ref.
+           errors generative distribution, of the sampling
+           size, and of the choice of error statistic.
     </ul>
     ")
   )
@@ -56,10 +57,10 @@ output$plotRanking <- renderPlot({
     stat = stat,
     ylab = ylab,
     oracle = 'oracle' %in% input$choicesRank,
-    ideal = 'ideal' %in% input$choicesRank,
-    conf_ideal = 'idealCI' %in% input$choicesRank,
-    rep_ideal = max(50,input$repIdealRank),
-    dist_ideal = input$distIdealRank,
+    probref = 'probref' %in% input$choicesRank,
+    conf_probref = 'probrefCI' %in% input$choicesRank,
+    rep_probref = max(50,input$repProbrefRank),
+    dist_probref = input$distProbrefRank,
     xlim = xlim,
     ylim = ylim,
     title = paste0(

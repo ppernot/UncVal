@@ -8,10 +8,10 @@ sidebarLayout(
       label = 'Plot options',
       choices = list(
         'Oracle curve' = 'oracle',
-        'Ideal curve'  = 'ideal',
-        'Ideal CI'     = 'idealCI'
+        'Prob. ref. curve'  = 'probref',
+        'Prob. ref. CI'     = 'probrefCI'
         ),
-      selected = 'ideal'
+      selected = 'probref'
     ),
     checkboxInput(
       "advancedRank",
@@ -21,8 +21,8 @@ sidebarLayout(
     conditionalPanel(
       condition = "input.advancedRank",
       radioButtons(
-        'distIdealRank',
-        label = 'Distribution for Ideal curve',
+        'distProbrefRank',
+        label = 'Distribution for prob. ref. curve',
         choices = list(
           'Normal'  = 'Normal',
           't(df=4)' = 'T4',
@@ -34,8 +34,8 @@ sidebarLayout(
         selected = 'Normal'
       ),
       sliderInput(
-        'repIdealRank',
-        label = 'Sample size for Ideal Curve',
+        'repProbrefRank',
+        label = 'Sample size for prob. ref. Curve',
         min   =   0,
         max   = 500,
         step  =  50,
