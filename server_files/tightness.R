@@ -30,11 +30,10 @@ output$plotTightness <- renderPlot({
   if('relDiag' %in% input$choicesTight) {
 
     boot = 'boot' %in% input$choicesTight
-    ErrViewLib::plotCalVar(
+    ErrViewLib::plotRelDiag(
       uE, E,
       logX = 'logX' %in% input$choicesTight,
       nBin = nBin,
-      # slide = 'slide' %in% input$choicesTight,
       nBoot = if(boot) 1000 else 0,
       xlim = xlim,
       ylim = ylim,
