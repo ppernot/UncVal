@@ -5,6 +5,7 @@ install.packages(
   "shiny",
   "shinycssloaders",
   "shinyFiles",
-  "shinythemes"
+  "shinythemes",
+  dependencies = TRUE
 )
 devtools::install_github("ppernot/ErrViewLIb")
