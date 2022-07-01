@@ -1,0 +1,11 @@
+install.packages(
+  "boot",
+  "data.table",
+  "devtools",
+  "inlmisc",
+  "shiny",
+  "shinycssloaders",
+  "shinyFiles",
+  "shinythemes"
+)
+devtools::install_github("ppernot/ErrViewLIb")
