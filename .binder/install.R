@@ -2,7 +2,6 @@ install.packages(
   "boot",
   "data.table",
   "devtools",
-  "inlmisc",
   "shiny",
   "shinycssloaders",
   "shinyFiles",
