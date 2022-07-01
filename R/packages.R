@@ -8,34 +8,33 @@ options(
 
 # Local install ----
 
-## CRAN Libraries ----
-# libs <- c(
-#   # "devtools", "Hmisc", "rlist", "boot", "lmtest",
-#   # "shiny", "shinyFiles", "BiocManager","Biogenerics","Biobase",
-#   # "DT", "tools", "inlmisc", "distillery", "ineq","plotly",   "pvclust"
-#   "data.table"
-#
-# )
-# for (lib in libs) {
-#   if (!require(lib, character.only = TRUE, quietly = TRUE))
-#     install.packages( lib,
-#       # repos = "https://cran.univ-paris1.fr",
-#       dependencies = TRUE
-#     )
-#   library(lib, character.only = TRUE, quietly = TRUE)
-# }
-# # ## Other libraries ----
-# lib = "ErrViewLib"
-# if(!require(lib,character.only = TRUE))
-# devtools::install_github(paste0("ppernot/",lib))
-# library(lib,character.only = TRUE)
+# CRAN Libraries ----
+libs <- c(
+  "devtools", "boot",
+  "shiny", "shinyFiles","shinycssloaders",
+  "data.table"
+
+)
+for (lib in libs) {
+  if (!require(lib, character.only = TRUE, quietly = TRUE))
+    install.packages( lib,
+      # repos = "https://cran.univ-paris1.fr",
+      dependencies = TRUE
+    )
+  library(lib, character.only = TRUE, quietly = TRUE)
+}
+# ## Other libraries ----
+lib = "ErrViewLib"
+if(!require(lib,character.only = TRUE))
+devtools::install_github(paste0("ppernot/",lib))
+library(lib,character.only = TRUE)
 
 # Cloud deployment ----
-
-library("devtools")
-library("shiny")
-library("shinyFiles")
-library("shinycssloaders")
-library("boot")
-library("ErrViewLib")
-library("data.table")
+#
+# library("devtools")
+# library("shiny")
+# library("shinyFiles")
+# library("shinycssloaders")
+# library("boot")
+# library("ErrViewLib")
+# library("data.table")
