@@ -19,7 +19,7 @@ for (lib in libs) {
   if (!require(lib, character.only = TRUE, quietly = TRUE))
     install.packages( lib,
       # repos = "https://cran.univ-paris1.fr",
-      dependencies = TRUE
+      dependencies = FALSE
     )
   library(lib, character.only = TRUE, quietly = TRUE)
 }
