@@ -6,7 +6,8 @@ install.packages(
     "shiny",
     "shinycssloaders",
     "shinyFiles",
-    "shinythemes"
+    "shinythemes",
+    "genefilter" # For ErrViewLib
   ),
   dependencies = TRUE
 )
