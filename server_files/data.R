@@ -3,12 +3,14 @@ K <- reactiveVal(1)
 dataUnits <- reactiveVal()
 output$selectMsg <- renderPrint({
   if(is.null(input$dataFile)) {
-    cat('Minimal expected datafile format (.csv):\n\n')
+    cat('Minimal expected datafile format (.csv):\n====\n')
     cat('"E","uE"\n')
     cat('"0.1","0.2"\n')
     cat('...\n')
-    cat('"0.5","0.8"\n\n')
-    return()
+    cat('"0.5","0.8"\n====')
+    cat('\n')
+    cat('Optional columns: "V" (QoI)\n\n')
+    return(NULL)
   }
 
   cat('Data set : ', input$dataFile[['name']],'\n\n')

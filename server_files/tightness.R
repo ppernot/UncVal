@@ -1,11 +1,29 @@
 output$textTightness <- renderUI({
   list(
-    h4("Explanations"),
-    hr( style="border-color: #666;"),
-    "blabla..."
+    h4("About"),
+    HTML("
+      <b>Variance-based calibration/tightness tests</b>
+      <BR>&nbsp;<BR>
+      <i>Local Z-variance analysis</i> <br>
+      Given that Z=E/uE, the target is Var(Z) = 1, in average (calibration)
+      and for all the groups (tightness).
+      <ul>
+        <li> <b>Var(Z) vs V</b> to be used for homoscedastic datasets.
+          The default representation is <b>Var(Z) vs uE</b>.
+        <li> <b>Sliding window</b> Var(Z) is estimated for a sliding
+          window of the same width as the groups.
+      </ul>
+      <i>Reliability diagram</i> <br>
+      Alternative representation where SD(E) is plotted vs RMS(uE)
+      estimated within groups. The points should lie around the
+      identity line.
+      <ul>
+        <li> <b>Bootstrap RD</b> provides confidence intervals
+          on Var(E) estimated by bootstrap.
+      </ul>
+    ")
   )
 })
-
 
 rangesTightness <- reactiveValues(x = NULL, y = NULL)
 output$plotTightness <- renderPlot({

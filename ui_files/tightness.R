@@ -15,7 +15,7 @@ sidebarLayout(
       'choicesTight',
       label = 'Plot type/options',
       choices = list(
-        'Z vs V' = 'xV',
+        'Var(Z) vs V' = 'xV',
         'X log axis' = 'logX',
         'Sliding window' = 'slide',
         'Reliab. Diagram' = 'relDiag',

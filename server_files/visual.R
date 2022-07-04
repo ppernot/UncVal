@@ -1,8 +1,27 @@
 output$textVisual <- renderUI({
   list(
-    h4("Explanations"),
-    hr( style="border-color: #666;"),
-    "blabla..."
+    h4("About"),
+    HTML("
+       Simple visual checks:
+       <ul>
+         <li> <b>E vs uE</b> plot the errors as a function of the
+            uncertainties. The spread of the cloud should be
+            parallel to the guide lines. Running quantiles are
+            drawn to facilitate appreciation.
+         <li> <b>Z vs V</b> for homoscedatstic datasets, uE cannot
+            be used as x-axis. In scu cases, one plots Z=E/uE as a
+            function od the QoI V (it it has been entered in the dataset).
+         <li> <b>log(|E|) vs uE</b> an alternative representation where
+            the mode of the cloud should follow the y=x line. It assumes
+            that the errors are generated from a normal distribution
+            with the uncertainties as standard deviation. Best with
+            <i>log X-axis</i> selected.
+       </ul>
+
+       The running statistics used in the plots are estimated on a
+       window with a width specified by <b>Bin width</b> which fixes
+       a percentage of the dataset size.
+         ")
   )
 })
 

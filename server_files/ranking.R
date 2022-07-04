@@ -12,15 +12,16 @@ output$textRanking <- renderUI({
            This is often an irrealistic error model,
            and no validation dataset can match the
            Oracle curve.
-      <li> <b>Prob. ref.</b>: an probabilistic reference
+      <li> <b>Prob. ref.</b>: a probabilistic reference
            curve is built by taking
            the uncertainties from the dataset and
            generating ideal errors such as E~N(0,uE).
            This is more realistic than an Oracle.
-           A confidence interval can be built around the
+           A confidence interval (CI) can be built around the
            prob. ref. curve by repeating the sampling of
-           errors. <em>Advanced parameters</em>
-           enable to appreciate the effect of the peob. ref.
+           errors.
+           <em>Advanced parameters</em>
+           enable to appreciate the effect of the prob. ref.
            errors generative distribution, of the sampling
            size, and of the choice of error statistic.
     </ul>
