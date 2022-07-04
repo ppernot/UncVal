@@ -24,12 +24,8 @@ options(
 #   library(lib, character.only = TRUE, quietly = TRUE)
 # }
 # # ## Other libraries ----
-lib = "ErrViewLib"
-if(!require(lib,character.only = TRUE))
-devtools::install_github(
-  paste0("ppernot/",lib),
-  dependencies = TRUE)
-library(lib,character.only = TRUE)
+# devtools::install_github("ppernot/ErrViewLib")
+# library(lib,character.only = TRUE)
 
 # Cloud deployment ----
 
@@ -38,5 +34,5 @@ library("shiny")
 library("shinyFiles")
 library("shinycssloaders")
 library("boot")
-# library("ErrViewLib")
+library("ErrViewLib")
 library("data.table")

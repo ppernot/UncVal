@@ -18,8 +18,7 @@ Depends:
     shiny,
     shinycssloaders,
     shinyFiles,
-    shinythemes
-Remotes: 
-    ppernot/ErrViewLib
+    shinythemes,
+    ErrViewLib
 Encoding: UTF-8
 LazyData: true
