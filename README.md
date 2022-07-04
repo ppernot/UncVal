@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/506150404.svg)](https://zenodo.org/badge/latestdoi/506150404)
+
+
 # UncVal
 Implements the methods reviewed in
 
@@ -40,13 +43,15 @@ docker remove -v uncval
 If you use UncVal in one of your publications, do not forget to cite it 
 and include the version you used for reproducibility:
 
-Pernot, P. (2022). Prediction uncertainty validation for computational chemists. 
-arXiv preprint arXiv:2204.13477.
+* Pernot, P. (2022) UncVal: Validation of prediction uncertainty (Version X.X). 
+https://doi.org/10.5281/zenodo.6793688 
 
-@article{Pernot2022Apr,
-	author = {Pernot, Pascal},
-	title = {{Prediction uncertainty validation for computational chemists}},
-	journal = {arXiv:2204.13477},
-	year = {2022},
-	doi = {10.48550/arXiv.2204.13477}
+* Pernot, P. (2022). Prediction uncertainty validation for computational chemists. 
+arXiv preprint arXiv:2204.13477.    
+@article{Pernot2022Apr,    
+	author = {Pernot, Pascal},     
+	title = {{Prediction uncertainty validation for computational chemists}},     
+	journal = {arXiv:2204.13477},    
+	year = {2022},    
+	doi = {10.48550/arXiv.2204.13477}    
 }
