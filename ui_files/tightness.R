@@ -11,16 +11,31 @@ sidebarLayout(
       step  =   5,
       value =  15
     ),
-    checkboxGroupInput(
-      'choicesTight',
-      label = 'Plot type/options',
-      choices = list(
-        'Var(Z) vs V' = 'xV',
-        'X log axis' = 'logX',
-        'Sliding window' = 'slide',
-        'Reliab. Diagram' = 'relDiag',
-        'Bootstrap RD' = 'boot'),
-      selected = NULL
+    uiOutput('methodTight'),
+    fluidRow(
+      column(
+        11, offset=1,
+        conditionalPanel(
+          condition = "input.methodTight != 'RD'",
+          checkboxGroupInput(
+            'choicesTight',
+            label = NULL,
+            choices = list(
+              'X = V'          = 'xV',
+              'X log axis'     = 'logX',
+              'Sliding window' = 'slide'),
+            selected = NULL
+          )
+        ),
+        conditionalPanel(
+          condition = "input.methodTight == 'RD'",
+          checkboxInput(
+            'bootRD',
+            label = 'Bootstrap RD',
+            value = FALSE
+          )
+        )
+      )
     )
   ),
   mainPanel(

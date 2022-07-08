@@ -1,28 +1,90 @@
 output$textTightness <- renderUI({
-  list(
-    h4("About"),
-    HTML("
-      <b>Variance-based calibration/tightness tests</b>
-      <BR>&nbsp;<BR>
-      <i>Local Z-variance analysis</i> <br>
-      Given that Z=E/uE, the target is Var(Z) = 1, in average (calibration)
-      and for all the groups (tightness).
+  req(newSet()) # Force dependence on new dataset
+
+  if(!is.null(uE)) {
+    list(
+      h4("About"),
+      HTML("
+      <i>Variance-based analysis</i> <br>
       <ul>
-        <li> <b>Var(Z) vs V</b> to be used for homoscedastic datasets.
-          The default representation is <b>Var(Z) vs uE</b>.
-        <li> <b>Sliding window</b> Var(Z) is estimated for a sliding
-          window of the same width as the groups.
-      </ul>
-      <i>Reliability diagram</i> <br>
-      Alternative representation where SD(E) is plotted vs RMS(uE)
-      estimated within groups. The points should lie around the
-      identity line.
-      <ul>
-        <li> <b>Bootstrap RD</b> provides confidence intervals
-          on Var(E) estimated by bootstrap.
+        <li> <b>Local Z-Variance analysis</b>:
+            Given that Z=E/uE, the target is Var(Z) = 1, in average (calibration)
+            and for all the groups (tightness).
+            <ul>
+              <li> <b>X = V</b> to be used for homoscedastic datasets.
+              The default representation is <b>X = uE</b>.
+              <li> <b>Sliding window</b> Local statistic is estimated for a sliding
+              window of the same width as the groups.
+            </ul>
+        <li> <b>Reliability diagram</b>:
+            Alternative representation where SD(E) is plotted vs RMS(uE)
+            estimated within groups. The points should lie around the
+            identity line.
+            <ul>
+               <li> <b>Bootstrap RD</b> provides confidence intervals
+                    on SD(E) estimated by bootstrap.
+            </ul>
       </ul>
     ")
-  )
+    )
+  } else {
+    list(
+      h4("About"),
+      HTML("
+      <i>Interval-based analysis</i> <br>
+      <ul>
+        <li> <b>Local Coverage Probability analysis</b>:
+            The percentage of errors within a [-UE95,UE95] interval
+            should be 0.95, in average (calibration) and for all the groups
+            (tightness).
+        <li> <b>Local Range Ratio analysis</b>:
+            The width of the [-UE95,UE95] interval divided by the width
+            of a 95 percent probability interval of the errors should be 1
+            for all the groups (tightness). This is mostly useful when the
+            LCP analysis saturates to 1...
+            <ul>
+              <li> <b>X = V</b> to be used for homoscedastic datasets.
+              The default representation is <b>X = UE95</b>.
+              <li> <b>Sliding window</b> Local statistic is estimated for a sliding
+              window of the same width as the groups.
+            </ul>
+      </ul>
+    ")
+    )
+  }
+})
+
+output$methodTight <- renderUI({
+  req(newSet()) # Force dependence on new dataset
+
+  if(!is.null(uE)) {
+
+    list(
+      radioButtons(
+        'methodTight',
+        label = 'Variance-based analysis',
+        choices = list(
+          'Local Z-Variance'      = 'LZV',
+          'Reliability Diagram'   = 'RD'),
+        selected = NULL
+      )
+    )
+
+  } else {
+
+    list(
+      radioButtons(
+        'methodTight',
+        label = 'Interval-based analysis',
+        choices = list(
+          'Local Coverage Proba.' = 'LCP',
+          'Local Range Ratio'     = 'LRR'),
+        selected = NULL
+      )
+    )
+
+  }
+
 })
 
 rangesTightness <- reactiveValues(x = NULL, y = NULL)
@@ -33,70 +95,98 @@ output$plotTightness <- renderPlot({
       'Please choose a datafile !'
     )
   )
-
-  xlab = paste0('uE [',dataUnits(),']')
+  req(input$methodTight)
 
   if(input$binWidthTight == 0)
     nBin = NULL
   else
     nBin = 100 / input$binWidthTight
 
-
   xlim = rangesTightness$x
   ylim = rangesTightness$y
 
-  if('relDiag' %in% input$choicesTight) {
+  if(!is.null(uE)) {
+    xlab = paste0('Uncertainty, uE [',dataUnits(),']')
 
-    boot = 'boot' %in% input$choicesTight
-    ErrViewLib::plotRelDiag(
-      uE, E,
-      logX = 'logX' %in% input$choicesTight,
-      nBin = nBin,
-      nBoot = if(boot) 1000 else 0,
-      xlim = xlim,
-      ylim = ylim,
-      title = 'Reliability Diagram',
-      gPars = gPars
-    )
+    if(input$methodTight == 'RD') {
+
+      ErrViewLib::plotRelDiag(
+        uE, E,
+        logX = 'logX' %in% input$choicesTight,
+        nBin = nBin,
+        nBoot = if(input$bootRD) 1000 else 0,
+        xlim = xlim,
+        ylim = ylim,
+        title = 'Reliability Diagram',
+        gPars = gPars
+      )
+
+    } else {
+
+      X = uE
+      if('xV' %in% input$choicesTight & !is.null(V)) {
+        X = V
+        xlab = paste0('Calculated Value, V [',dataUnits(),']')
+      }
+      ErrViewLib::plotLZV(
+        X, E/uE,
+        logX = if (min(X) > 0) 'logX' %in% input$choicesTight else FALSE,
+        nBin = nBin,
+        col = 5,
+        method = 'cho',
+        slide = 'slide' %in% input$choicesTight,
+        xlim = xlim,
+        xlab = xlab,
+        ylim = ylim,
+        title = 'Local Z Variance analysis',
+        gPars = gPars
+      )
+    }
 
   } else {
-    X = uE
-    xlab = 'Prediction uncertainty, uE'
-    if('xV' %in% input$choicesTight) {
-      X = V
-      xlab = 'Calculated Value, V'
-    }
-    ErrViewLib::plotLZV(
-      X, E/uE,
-      logX = if (min(X) > 0) 'logX' %in% input$choicesTight else FALSE,
-      nBin = nBin,
-      method = 'cho',
-      slide = 'slide' %in% input$choicesTight,
-      xlim = xlim,
-      xlab = xlab,
-      ylim = ylim,
-      title = 'Local Z Variance analysis',
-      gPars = gPars
-    )
-  }
 
+    X = UE95
+    xlab = paste0('Exp. uncertainty, UE95 [',dataUnits(),']')
+    if('xV' %in% input$choicesTight & !is.null(V)) {
+      X = V
+      xlab = paste0('Calculated Value, V [',dataUnits(),']')
+    }
+
+    if(input$methodTight == 'LCP') {
+      ErrViewLib::plotLCP(
+        E, UE95,
+        ordX = X,
+        logX = if (min(X) > 0) 'logX' %in% input$choicesTight else FALSE,
+        nBin = nBin,
+        slide = 'slide' %in% input$choicesTight,
+        mycols = 5,
+        xlim = xlim,
+        xlab = xlab,
+        ylim = if(is.null(ylim)) c(0.75,1) else ylim,
+        title = 'Local Coverage Proba. Analysis',
+        gPars = gPars
+      )
+
+    } else {
+      ErrViewLib::plotLRR(
+        E, UE95,
+        ordX = X,
+        logX = if (min(X) > 0) 'logX' %in% input$choicesTight else FALSE,
+        nBin = nBin,
+        slide = FALSE,
+        mycols = 5,
+        xlim = xlim,
+        xlab = xlab,
+        ylim = ylim,
+        title = 'Local Range Ratio Analysis',
+        gPars = gPars
+      )
+
+    }
+  }
 },
 width = plotWidth, height = plotHeight)
 
-# observeEvent(input$choicesTight, {
-#   if('logX' %in% input$choicesTight) {
-#     updateCheckboxGroupInput(
-#       inputId  = 'choicesVis',
-#       selected =  c(input$choicesVis, 'logX')
-#     )
-#   } else {
-#     sel = input$choicesVis
-#     updateCheckboxGroupInput(
-#       inputId  = 'choicesVis',
-#       selected =  within(sel, rm('logX'))
-#     )
-#   }
-# })
 
 observeEvent(input$Tightness_dblclick, {
   brush <- input$Tightness_brush

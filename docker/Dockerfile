@@ -2,7 +2,7 @@ FROM ppernot1/shiny_base
 
 #RUN apt-get -y --no-install-recommends install cmake
 
-# renv
+## renv
 ENV RENV_VERSION 0.15.5
 RUN Rscript -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))"
 RUN Rscript -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')"
@@ -24,6 +24,12 @@ COPY server_files /UncVal/server_files/
 COPY R /UncVal/R/
 COPY data /UncVal/data/
 
-# expose port and run app
+## change user from root ### BREAKS renv links !!!
+#RUN addgroup --system app \
+#    && adduser --system --ingroup app app
+#RUN chown app:app -R /UncVal
+#USER app
+
+## expose port and run app
 EXPOSE 3830
 CMD ["R", "-e", "shiny::runApp(host = '0.0.0.0', port = 3830)"]

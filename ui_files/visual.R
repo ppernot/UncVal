@@ -22,10 +22,15 @@ sidebarLayout(
       inline = FALSE,
       selected = 'EvsuE'
     ),
-    checkboxInput(
-      'logVis',
-      label = 'log X-axis',
-      value = FALSE
+    fluidRow(
+      column(
+        11, offset=1,
+        checkboxInput(
+          'logVis',
+          label = 'log X-axis',
+          value = FALSE
+        )
+      )
     )
   ),
   mainPanel(

@@ -16,6 +16,7 @@ output$textRanking <- renderUI({
            curve is built by taking
            the uncertainties from the dataset and
            generating ideal errors such as E~N(0,uE).
+           If UE95 is provided, on uses E~N(0,UE95/2).
            This is more realistic than an Oracle.
            A confidence interval (CI) can be built around the
            prob. ref. curve by repeating the sampling of
@@ -53,8 +54,15 @@ output$plotRanking <- renderPlot({
     ylab = 'MAE / MAE0'
   }
 
+
+  if(!is.null(uE)) {
+    U = uE
+  } else {
+    U = UE95 / 1.96
+  }
+
   ErrViewLib::plotConfidence(
-    E, uE,
+    E, U,
     stat = stat,
     ylab = ylab,
     oracle = 'oracle' %in% input$choicesRank,
@@ -62,11 +70,12 @@ output$plotRanking <- renderPlot({
     conf_probref = 'probrefCI' %in% input$choicesRank,
     rep_probref = max(50,input$repProbrefRank),
     dist_probref = input$distProbrefRank,
+    col = 5,
     xlim = xlim,
     ylim = ylim,
     title = paste0(
       'Confidence Curve / RCC(uE,|E|) = ',
-      signif(cor(uE,abs(E),method = 'spearman'),2)
+      signif(cor(U,abs(E),method = 'spearman'),2)
     ),
     gPars = gPars
   )

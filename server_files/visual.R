@@ -15,7 +15,7 @@ output$textVisual <- renderUI({
             the mode of the cloud should follow the y=x line. It assumes
             that the errors are generated from a normal distribution
             with the uncertainties as standard deviation. Best with
-            <i>log X-axis</i> selected.
+            <i>log X-axis</i> selected. Do not use for UE95.
        </ul>
 
        The running statistics used in the plots are estimated on a
@@ -34,19 +34,26 @@ output$plotVisual <- renderPlot({
     )
   )
 
-  ylab = NULL
+  ylab = paste0('Error, E [',dataUnits(),']')
   runMode = FALSE
   runQuant = TRUE
 
-  X = uE
+  if(!is.null(uE)) {
+    U = uE
+    xlab = paste0('Uncertainty, uE [',dataUnits(),']')
+  } else {
+    U = UE95
+    xlab = paste0('Exp. uncertainty, UE95 [',dataUnits(),']')
+  }
+
+  X = U
   Y = E
   logY = FALSE
-  xlab = paste0('uE [',dataUnits(),']')
   type = 'prop'
-  if(input$typeVis == 'ZvsV') {
+  if(input$typeVis == 'ZvsV' & !is.null(V)) {
     X = V
-    Y = E/uE
-    xlab = 'Calculated Value, V'
+    Y = E/U
+    xlab = paste0('Calculated Value, V [',dataUnits(),']')
     ylab = 'Z-score'
     type = 'horiz'
   }
@@ -63,17 +70,25 @@ output$plotVisual <- renderPlot({
     ylab = 'log10 |E|'
   }
 
+  logX = input$logVis & min(X) > 0
+
   xlim = rangesVisual$x
+  if(is.null(xlim) & !logX & !logY)
+    if(min(X) >0)
+      xlim = c(0,max(X))
+    else
+      xlim = range(X)
   ylim = rangesVisual$y
 
   ErrViewLib::plotEvsPU(
     X, Y,
-    logX = input$logVis,
+    logX = logX,
     logY = logY,
     type = type,
     nBin = nBin,
     runQuant = runQuant,
     runMode = runMode,
+    xlab = xlab,
     ylab = ylab,
     xlim = xlim,
     ylim = ylim,
@@ -83,21 +98,6 @@ output$plotVisual <- renderPlot({
 },
 width = plotWidth, height = plotHeight)
 
-
-# observeEvent(input$choicesVis, {
-#   if('logX' %in% input$choicesVis) {
-#     updateCheckboxGroupInput(
-#       inputId  = 'choicesTight',
-#       selected =  c(input$choicesTight, 'logX')
-#     )
-#   } else {
-#     sel = input$choicesTight
-#     updateCheckboxGroupInput(
-#       inputId  = 'choicesTight',
-#       selected =  within(sel, rm('logX'))
-#     )
-#   }
-# })
 
 observeEvent(input$Visual_dblclick, {
   brush <- input$Visual_brush
