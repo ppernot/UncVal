@@ -1,13 +1,13 @@
 BUILD :
     1/ cd UncVal
-    2/ docker build -t ppernot1/uncval:v0.1 -f docker/Dockerfile .
+    2/ docker build -t ppernot1/uncval:v0.2 -f docker/Dockerfile .
     3/ docker login
-    4/ docker push ppernot1/uncval:v0.1
+    4/ docker push ppernot1/uncval:v0.2
 
 RUN :
    UI :
-       1/ docker run -d -p 3830:3830 --name uncval ppernot1/uncval:v0.1
+       1/ docker run -d -p 3830:3830 --name uncval ppernot1/uncval:v0.2
        3/ access http://localhost:3830 in browser
 
    BASH :
-       * docker run -ti ppernot1/uncval:v0.1 bash
+       * docker run -ti ppernot1/uncval:v0.2 bash
