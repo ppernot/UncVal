@@ -4,7 +4,7 @@ output$selectMsg <- renderPrint({
   validate(
     need(
       !is.null(input$dataFile),
-      'Minimal expected datafile format (.csv):\n\n  "E", "uE"\n  0.1, 0.2\n  ...\n  0.5, 0.8\n\n'
+      'Minimal datafile format (.csv):\n\n  "E", "uE"\n  0.1, 0.2\n  ...\n  0.5, 0.8\n\n'
     )
   )
 
