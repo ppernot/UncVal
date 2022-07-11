@@ -1,18 +1,12 @@
-
-
 dataUnits <- reactiveVal()
 
 output$selectMsg <- renderPrint({
-  if(is.null(input$dataFile)) {
-    cat('Minimal expected datafile format (.csv):\n====\n')
-    cat('"E","uE"\n')
-    cat('"0.1","0.2"\n')
-    cat('...\n')
-    cat('"0.5","0.8"\n====')
-    cat('\n')
-    cat('Optional columns: "V" (QoI)\n\n')
-    return(NULL)
-  }
+  validate(
+    need(
+      !is.null(input$dataFile),
+      'Minimal expected datafile format (.csv):\n\n  "E", "uE"\n  0.1, 0.2\n  ...\n  0.5, 0.8\n\n'
+    )
+  )
 
   cat('Data set : ', input$dataFile[['name']],'\n\n')
 
@@ -97,9 +91,28 @@ output$selectMsg <- renderPrint({
 output$howTo <- renderText({
   '<h4>Short help on tabs:</h4>
   <ul style="list-style-type:none;">
-    <li> <b>Data:</b> Choose a csv datafile.
-    <li> <b>Visual check:</b> Simple visualizations of the data.
-    <li> <b>C/T:</b> Calibration/Tightness validation.
-    <li> <b>Ranking:</b> ranking-based validation.
-  </ul>'
+    <li> <b>Data</b>: Choose a csv datafile.
+    <li> <b>Visual checks</b>: Simple visualizations of the data.
+    <li> <b>C/T</b>: Calibration/Tightness validation.
+    <li> <b>Ranking</b>: Ranking-based validation.
+  </ul>
+  <h4>Valid data columns combinations:</h4>
+  <ul>
+    <li> "E", "uE" or "UE95"
+    <li> "E", "V", "uE" or "UE95"
+    <li> "R", "V", "uE" or "UE95"
+    <li> "R", "uR" or "UR95", "V", "uV" or "UV95"
+  </ul>
+  where
+  <ul style="list-style-type:none;">
+    <li> <b>E</b>: Error (R-V)
+    <li> <b>V</b>: Calculated/predicted value
+    <li> <b>R</b>: Reference value
+    <li> <b>uX</b>: Standard uncertainty on X in (E, V, R)
+    <li> <b>UX95</b>: Expanded uncertainty at 95 % level on X in (E, V, R)
+  </ul>
+  <BR>
+  For details see <A HREF="https://arxiv.org/abs/2204.13477">P. Pernot (2020)
+  Prediction uncertainty validation for computational chemists.</A>
+  '
 })
