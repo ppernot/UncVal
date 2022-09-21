@@ -4,8 +4,10 @@
 # UncVal
 Implements the methods reviewed in
 
-[Pernot, P. (2022). Prediction uncertainty validation for computational chemists. 
-arXiv preprint arXiv:2204.13477.](https://arxiv.org/abs/2204.13477)
+Pernot, P. (2022). Prediction uncertainty validation for computational chemists.
+_J. Chem. Phys._ 
+([doi](http://dx.doi.org/10.1063/5.0109572);
+[arXiv](https://arxiv.org/abs/2204.13477))
 
 ## Docker container
 
@@ -47,11 +49,12 @@ and include the version you used for reproducibility:
 https://doi.org/10.5281/zenodo.6793688 
 
 * Pernot, P. (2022). Prediction uncertainty validation for computational chemists. 
-arXiv preprint arXiv:2204.13477.    
+_J. Chem. Phys._ (in press)
 @article{Pernot2022Apr,    
 	author = {Pernot, Pascal},     
 	title = {{Prediction uncertainty validation for computational chemists}},     
-	journal = {arXiv:2204.13477},    
+	journal = {J. Chem. Phys.},    
+	volume = {in press},    
 	year = {2022},    
-	doi = {10.48550/arXiv.2204.13477}    
+	doi = {10.1063/5.0109572}    
 }
