@@ -50,20 +50,11 @@ https://doi.org/10.5281/zenodo.6793688
 
 * Pernot, P. (2022). Prediction uncertainty validation for computational chemists. 
 _J. Chem. Phys._ (in press)
-<<<<<<< HEAD
-@article{Pernot2022Apr,    
+@article{Pernot2022,    
 	author = {Pernot, Pascal},     
 	title = {{Prediction uncertainty validation for computational chemists}},     
 	journal = {J. Chem. Phys.},    
 	volume = {in press},    
-=======
-
-@article{Pernot2022Apr,    
-	author = {Pernot, Pascal},     
-	title = {{Prediction uncertainty validation for computational chemists}},     
-	journal = {J. Chem. Phys.},
-	volume = {in press},
->>>>>>> 64e378d66036259385d209cfded294ac9999b376
 	year = {2022},    
 	doi = {10.1063/5.0109572}    
 }
