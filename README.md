@@ -48,7 +48,7 @@ and include the version you used for reproducibility:
 * Pernot, P. (2022) UncVal: Validation of prediction uncertainty (Version X.X). 
 https://doi.org/10.5281/zenodo.6793688 
 
-It would also be nice to cite the following article:
+You might also want to  cite the following article:
 
 * Pernot, P. (2022). Prediction uncertainty validation for computational chemists. 
 _J. Chem. Phys._ (in press)
