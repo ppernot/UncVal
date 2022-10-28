@@ -21,7 +21,7 @@ sidebarLayout(
     wellPanel(
       h4("About"),
       h5("Author      : P. Pernot"),
-      h5("Affiliation : CNRS"),
+      h5("Affiliation : ",a(href="https://www.cnrs.fr/","CNRS")),
       h5(paste0("Version     : ",version)),
       # hr( style="border-color: #666;"),
       # h5(a(href="https://ppernot.github.io/UncVal","User's Manual")),

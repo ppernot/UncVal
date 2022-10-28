@@ -4,13 +4,13 @@ output$textVisual <- renderUI({
     HTML("
        Simple visual checks:
        <ul>
-         <li> <b>E vs uE</b> plot the errors as a function of the
-            uncertainties. The spread of the cloud should be
-            parallel to the guide lines. Running quantiles are
+         <li> <b>E (|E|) vs uE</b> plot the errors (absolute errors)
+            as a function of the uncertainties. The spread of the cloud
+            should be parallel to the guide lines. Running quantiles are
             drawn to facilitate appreciation.
          <li> <b>Z vs V</b> for homoscedatstic datasets, uE cannot
-            be used as x-axis. In scu cases, one plots Z=E/uE as a
-            function od the QoI V (it it has been entered in the dataset).
+            be used as x-axis. In such cases, one plots Z=E/uE as a
+            function of the QoI V (if available in the dataset).
          <li> <b>log(|E|) vs uE</b> an alternative representation where
             the mode of the cloud should follow the y=x line. It assumes
             that the errors are generated from a normal distribution
@@ -56,6 +56,17 @@ output$plotVisual <- renderPlot({
     xlab = paste0('Calculated Value, V [',dataUnits(),']')
     ylab = 'Z-score'
     type = 'horiz'
+
+  } else if(input$typeVis == 'absEvsuE') {
+    Y = abs(E)
+    ylab = paste0('Abs. error, |E| [',dataUnits(),']')
+
+  } else if(input$typeVis == 'logEvsuE') {
+    logY = TRUE
+    runMode = TRUE
+    runQuant = FALSE
+    ylab = 'log10 |E|'
+
   }
 
   if(input$binWidthVis == 0)
@@ -63,22 +74,22 @@ output$plotVisual <- renderPlot({
   else
     nBin = 100 / input$binWidthVis
 
-  if(input$typeVis == 'logEvsuE') {
-    logY = TRUE
-    runMode = TRUE
-    runQuant = FALSE
-    ylab = 'log10 |E|'
-  }
-
   logX = input$logVis & min(X) > 0
 
   xlim = rangesVisual$x
-  if(is.null(xlim) & !logX & !logY)
-    if(min(X) >0)
+  if(is.null(xlim) & !logX & !logY) {
+    if(min(X) > 0)
       xlim = c(0,max(X))
     else
       xlim = range(X)
+  }
   ylim = rangesVisual$y
+  if(is.null(ylim) & !logY) {
+    if(min(Y) > 0)
+      ylim = c(0,max(Y))
+    else
+      ylim = range(Y)
+  }
 
   ErrViewLib::plotEvsPU(
     X, Y,

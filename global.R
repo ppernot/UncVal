@@ -1,7 +1,7 @@
-version = 0.2
+version = 0.3
 
 options(
-  # shiny.maxRequestSize=30*1024^2, # Increase max loading size to 30 Mo
+  shiny.maxRequestSize=15*1024^2, # Increase max loading size to 15 Mo
   width = 70
 )
 

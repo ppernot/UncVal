@@ -16,6 +16,7 @@ sidebarLayout(
       label = 'Plot type',
       choices = list(
         'E vs uE' = 'EvsuE',
+        '|E| vs uE' = 'absEvsuE',
         'Z vs V'  = 'ZvsV',
         'log(|E|) vs uE' = 'logEvsuE'
       ),
@@ -38,14 +39,17 @@ sidebarLayout(
     fluidRow(
       column(
         8,
-        plotOutput(
-          "plotVisual",
-          dblclick = "Visual_dblclick",
-          brush = brushOpts(
-            id = "Visual_brush",
-            resetOnNew = TRUE
+        shinycssloaders::withSpinner(
+          plotOutput(
+            "plotVisual",
+            dblclick = "Visual_dblclick",
+            brush = brushOpts(
+              id = "Visual_brush",
+              resetOnNew = TRUE
+            )
           )
         )
+
       ),
       column(
         4,

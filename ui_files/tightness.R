@@ -43,12 +43,14 @@ sidebarLayout(
     fluidRow(
       column(
         8,
-        plotOutput(
-          "plotTightness",
-          dblclick = "Tightness_dblclick",
-          brush = brushOpts(
-            id = "Tightness_brush",
-            resetOnNew = TRUE
+        shinycssloaders::withSpinner(
+          plotOutput(
+            "plotTightness",
+            dblclick = "Tightness_dblclick",
+            brush = brushOpts(
+              id = "Tightness_brush",
+              resetOnNew = TRUE
+            )
           )
         )
       ),
