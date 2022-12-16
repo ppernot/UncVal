@@ -51,13 +51,14 @@ https://doi.org/10.5281/zenodo.6793688
 You might also want to  cite the following article:
 
 * Pernot, P. (2022). Prediction uncertainty validation for computational chemists. 
-_J. Chem. Phys._ (in press)
+_J. Chem. Phys._ __157__:144103 (http://doi.org/10.1063/5.0109572)
 ```
 @article{Pernot2022,    
 	author = {Pernot, Pascal},     
 	title = {Prediction uncertainty validation for computational chemists},     
 	journal = {J. Chem. Phys.},    
-	volume = {in press},    
+	pages = {144103},
+  volume = {157},  
 	year = {2022},    
 	doi = {10.1063/5.0109572}    
 }

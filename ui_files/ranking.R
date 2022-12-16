@@ -11,7 +11,7 @@ sidebarLayout(
         'Prob. ref. curve'  = 'probref',
         'Prob. ref. CI'     = 'probrefCI'
         ),
-      selected = 'probref'
+      selected = c('probref','probrefCI')
     ),
     checkboxInput(
       "advancedRank",
@@ -23,15 +23,44 @@ sidebarLayout(
       fluidRow(
         column(
           11, offset=1,
+          fluidRow(
+            column(
+              6,
+              checkboxInput(
+                "normalizeRank",
+                label= "Normalized CC",
+                value = FALSE
+              )
+            ),
+            column(
+              6,
+              checkboxInput(
+                "showDFPRRank",
+                label= "Show DFPR",
+                value = FALSE
+              )
+            )
+          ),
+          radioButtons(
+            'statRank',
+            label = 'Error statistic',
+            choices = list(
+              'MAE'  = 'MAE',
+              'RMSE' = 'RMSE',
+              'Q95'  = 'Q95'
+            ),
+            inline = TRUE,
+            selected = 'RMSE'
+          ),
           radioButtons(
             'distProbrefRank',
             label = 'Distribution for prob. ref. curve',
             choices = list(
-              'Normal'  = 'Normal',
-              't(df=4)' = 'T4',
-              'Laplace' = 'Laplace',
               'Uniform' = 'Uniform',
-              'Normp(p=4)' = 'Normp4'
+              'Normp(p=4)' = 'Normp4',
+              'Normal'  = 'Normal',
+              'Laplace' = 'Laplace',
+              't(df=4)' = 'T4'
             ),
             inline = FALSE,
             selected = 'Normal'
@@ -42,18 +71,7 @@ sidebarLayout(
             min   =   0,
             max   = 500,
             step  =  50,
-            value =  50
-          ),
-          radioButtons(
-            'statRank',
-            label = 'Error statistic',
-            choices = list(
-              'MAE'  = 'MAE',
-              'RMSD' = 'RMSD',
-              'Q95'  = 'Q95'
-            ),
-            inline = TRUE,
-            selected = 'MAE'
+            value =  250
           )
         )
       )

@@ -65,6 +65,7 @@ output$methodTight <- renderUI({
         label = 'Variance-based analysis',
         choices = list(
           'Local Z-Variance'      = 'LZV',
+          'Local Z-Inv.-SD'       = 'LZISD',
           'Reliability Diagram'   = 'RD'),
         selected = NULL
       )
@@ -97,10 +98,10 @@ output$plotTightness <- renderPlot({
   )
   req(input$methodTight)
 
-  if(input$binWidthTight == 0)
+  if(input$nBinTight == 0)
     nBin = NULL
   else
-    nBin = 100 / input$binWidthTight
+    nBin = input$nBinTight
 
   xlim = rangesTightness$x
   ylim = rangesTightness$y
@@ -113,8 +114,10 @@ output$plotTightness <- renderPlot({
       ErrViewLib::plotRelDiag(
         uE, E,
         logX = 'logX' %in% input$choicesTight,
+        equiPop = input$equiPopTight,
+        popMin = input$popMinTight,
+        logBin = input$logBinTight,
         nBin = nBin,
-        nBoot = if(input$bootRD) 1000 else 0,
         xlim = xlim,
         ylim = ylim,
         title = 'Reliability Diagram',
@@ -128,19 +131,41 @@ output$plotTightness <- renderPlot({
         X = V
         xlab = paste0('Calculated Value, V [',dataUnits(),']')
       }
-      ErrViewLib::plotLZV(
-        X, E/uE,
-        logX = if (min(X) > 0) 'logX' %in% input$choicesTight else FALSE,
-        nBin = nBin,
-        col = 5,
-        method = 'cho',
-        slide = 'slide' %in% input$choicesTight,
-        xlim = xlim,
-        xlab = xlab,
-        ylim = ylim,
-        title = 'Local Z Variance analysis',
-        gPars = gPars
-      )
+      if(input$methodTight == 'LZV')
+        ErrViewLib::plotLZV(
+          X, E/uE,
+          logX = if (min(X) > 0) 'logX' %in% input$choicesTight else FALSE,
+          nBin = nBin,
+          equiPop = input$equiPopTight,
+          popMin = input$popMinTight,
+          logBin = input$logBinTight,
+          col = 5,
+          method = 'cho',
+          slide = input$slideTight,
+          xlim = xlim,
+          xlab = xlab,
+          ylim = ylim,
+          title = 'Local Z Variance analysis',
+          gPars = gPars
+        )
+      else
+        ErrViewLib::plotLZISD(
+          X, E/uE,
+          logX = if (min(X) > 0) 'logX' %in% input$choicesTight else FALSE,
+          nBin = nBin,
+          equiPop = input$equiPopTight,
+          popMin = input$popMinTight,
+          logBin = input$logBinTight,
+          col = 5,
+          method = 'cho',
+          slide = input$slideTight,
+          xlim = xlim,
+          xlab = xlab,
+          ylim = ylim,
+          title = 'Local Z Inv. SD analysis',
+          gPars = gPars
+        )
+
     }
 
   } else {

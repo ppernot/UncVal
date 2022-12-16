@@ -112,15 +112,15 @@
     },
     "ErrViewLib": {
       "Package": "ErrViewLib",
-      "Version": "1.5",
+      "Version": "1.6",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "ErrViewLib",
       "RemoteUsername": "ppernot",
       "RemoteRef": "HEAD",
-      "RemoteSha": "58f036999ba98189f7b5f91bdddfd35c8181558f",
-      "Hash": "0d7358284daffd453de1814c938da46e",
+      "RemoteSha": "2b064f20250b30775f716cb562def7d8125b9d54",
+      "Hash": "d72fc21e252f0109c23b22fd36f347c6",
       "Requirements": [
         "DescTools",
         "Hmisc",
@@ -198,18 +198,18 @@
     },
     "MASS": {
       "Package": "MASS",
-      "Version": "7.3-54",
+      "Version": "7.3-58",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "0e59129db205112e3963904db67fd0dc",
+      "Hash": "4bf2c61e656bbc238634c798c208d386",
       "Requirements": []
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.3-4",
+      "Version": "1.4-1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4ed05e9c9726267e4a5872e09c04587c",
+      "Hash": "699c47c606293bdfbc9fd78a93c9c8fe",
       "Requirements": [
         "lattice"
       ]
@@ -461,10 +461,10 @@
     },
     "class": {
       "Package": "class",
-      "Version": "7.3-19",
+      "Version": "7.3-20",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1593b7beb067c8381c0d24e38bd778e0",
+      "Hash": "da09d82223e669d270e47ed24ac8686e",
       "Requirements": [
         "MASS"
       ]
@@ -499,10 +499,10 @@
     },
     "cluster": {
       "Package": "cluster",
-      "Version": "2.1.2",
+      "Version": "2.1.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "ce49bfe5bc0b3ecd43a01fe1b01c2243",
+      "Hash": "5edbbabab6ce0bf7900a74fd4358628e",
       "Requirements": []
     },
     "colorspace": {
@@ -1177,10 +1177,10 @@
     },
     "mgcv": {
       "Package": "mgcv",
-      "Version": "1.8-38",
+      "Version": "1.8-40",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "be3c61ffbb1e3d3b3df214d192ac5444",
+      "Hash": "c6b2fdb18cf68ab613bd564363e1ba0d",
       "Requirements": [
         "Matrix",
         "nlme"
@@ -1235,20 +1235,20 @@
     },
     "nlme": {
       "Package": "nlme",
-      "Version": "3.1-152",
+      "Version": "3.1-159",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "35de1ce639f20b5e10f7f46260730c65",
+      "Hash": "4a0b3a68f846cb999ff0e8e519524fbb",
       "Requirements": [
         "lattice"
       ]
     },
     "nnet": {
       "Package": "nnet",
-      "Version": "7.3-16",
+      "Version": "7.3-17",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "3a3dc184000bc9e6c145c4dbde4dd702",
+      "Hash": "cb1d8d9f300a7e536b89c8a88c53f610",
       "Requirements": []
     },
     "normalp": {
@@ -1603,10 +1603,10 @@
     },
     "rpart": {
       "Package": "rpart",
-      "Version": "4.1-15",
+      "Version": "4.1.16",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "9787c1fcb680e655d062e7611cadf78e",
+      "Hash": "ea3ca1d9473daabb3cd0f1b4f974c1ed",
       "Requirements": []
     },
     "rprojroot": {
@@ -1835,10 +1835,10 @@
     },
     "survival": {
       "Package": "survival",
-      "Version": "3.2-13",
+      "Version": "3.4-0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6f0a0fadc63bc6570fe172770f15bbc4",
+      "Hash": "04411ae66ab4659230c067c32966fc20",
       "Requirements": [
         "Matrix"
       ]

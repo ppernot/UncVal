@@ -40,39 +40,25 @@ output$plotRanking <- renderPlot({
     )
   )
 
-  xlim = rangesRanking$x
-  ylim = rangesRanking$y
-
-  if(input$statRank == 'RMSD') {
-    stat = sd
-    ylab = 'RMSD / RMSD0'
-  } else   if(input$statRank == 'Q95') {
-    stat = ErrViewLib::q95hd
-    ylab = 'Q95 / Q950'
-  } else {
-    stat = ErrViewLib::mue
-    ylab = 'MAE / MAE0'
-  }
-
-
   if(!is.null(uE)) {
     U = uE
   } else {
     U = UE95 / 1.96
   }
 
-  ErrViewLib::plotConfidence(
+  ErrViewLib::plotCC(
     E, U,
-    stat = stat,
-    ylab = ylab,
+    normalize = input$normalizeRank,
+    dfpr = input$showDFPRRank,
+    statS = input$statRank,
     oracle = 'oracle' %in% input$choicesRank,
     probref = 'probref' %in% input$choicesRank,
     conf_probref = 'probrefCI' %in% input$choicesRank,
-    rep_probref = max(50,input$repProbrefRank),
+    rep_probref = max(100,input$repProbrefRank),
     dist_probref = input$distProbrefRank,
     col = 5,
-    xlim = xlim,
-    ylim = ylim,
+    xlim = rangesRanking$x,
+    ylim = rangesRanking$y,
     title = paste0(
       'Confidence Curve / RCC(uE,|E|) = ',
       signif(cor(U,abs(E),method = 'spearman'),2)
