@@ -1,4 +1,4 @@
-version = 0.4
+version = 0.5
 
 options(
   shiny.maxRequestSize=15*1024^2, # Increase max loading size to 15 Mo

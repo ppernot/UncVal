@@ -57,8 +57,8 @@ _J. Chem. Phys._ __157__:144103 (http://doi.org/10.1063/5.0109572)
 	author = {Pernot, Pascal},     
 	title = {Prediction uncertainty validation for computational chemists},     
 	journal = {J. Chem. Phys.},    
-	pages = {144103},
-  volume = {157},  
+	pages = {144103},   
+	volume = {157},    
 	year = {2022},    
 	doi = {10.1063/5.0109572}    
 }

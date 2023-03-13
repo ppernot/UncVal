@@ -8,9 +8,11 @@ output$textVisual <- renderUI({
             as a function of the uncertainties. The spread of the cloud
             should be parallel to the guide lines. Running quantiles are
             drawn to facilitate appreciation.
-         <li> <b>Z vs V</b> for homoscedatstic datasets, uE cannot
-            be used as x-axis. In such cases, one plots Z=E/uE as a
-            function of the QoI V (if available in the dataset).
+         <li> <b>Z vs X</b> a plot of the z-scores (Z=E/uE) vs an input
+            feature (X) provides hints about the adaptivity of the UQ
+            method.
+         <li> <b>Z vs V</b> same as above when no input feature is avalable.
+            Also useful for homoscedastic datasets.
          <li> <b>log(|E|) vs uE</b> an alternative representation where
             the mode of the cloud should follow the y=x line. It assumes
             that the errors are generated from a normal distribution
@@ -56,6 +58,13 @@ output$plotVisual <- renderPlot({
     xlab = paste0('Calculated Value, V [',dataUnits(),']')
     ylab = 'Z-score'
     type = 'horiz'
+
+  } else if(input$typeVis == 'ZvsX' & !is.null(Xi)) {
+      X = Xi
+      Y = E/U
+      xlab = 'Input feature, X '
+      ylab = 'Z-score'
+      type = 'horiz'
 
   } else if(input$typeVis == 'absEvsuE') {
     Y = abs(E)

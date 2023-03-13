@@ -112,15 +112,15 @@
     },
     "ErrViewLib": {
       "Package": "ErrViewLib",
-      "Version": "1.6",
+      "Version": "1.7",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "ErrViewLib",
       "RemoteUsername": "ppernot",
       "RemoteRef": "HEAD",
-      "RemoteSha": "2b064f20250b30775f716cb562def7d8125b9d54",
-      "Hash": "d72fc21e252f0109c23b22fd36f347c6",
+      "RemoteSha": "bbda0f8124e5f3be8e96af62e1b5c220624ad7c0",
+      "Hash": "a7fec77c502d48d13672aa4a4f4d096c",
       "Requirements": [
         "DescTools",
         "Hmisc",

@@ -18,6 +18,7 @@ sidebarLayout(
         'E vs uE' = 'EvsuE',
         '|E| vs uE' = 'absEvsuE',
         'Z vs V'  = 'ZvsV',
+        'Z vs X'  = 'ZvsX',
         'log(|E|) vs uE' = 'logEvsuE'
       ),
       inline = FALSE,

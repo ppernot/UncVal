@@ -27,7 +27,7 @@ function(request) {
     #   source_ui("calibration.R")
     # ),
     tabPanel(
-      title = "C/T",
+      title = "C/C/A",
       source_ui("tightness.R")
     ),
     tabPanel(

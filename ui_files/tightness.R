@@ -14,6 +14,7 @@ sidebarLayout(
             label = NULL,
             choices = list(
               'X = V'          = 'xV',
+              'X = X'          = 'xX',
               'X log axis'     = 'logX'),
             selected = NULL
           )
@@ -23,10 +24,10 @@ sidebarLayout(
     sliderInput(
       'nBinTight',
       label = 'Number of bins for local stats',
-      min   =   0,
-      max   =  50,
-      step  =   5,
-      value =  15
+      min   =    0,
+      max   =  100,
+      step  =    5,
+      value =   20
     ),
     fluidRow(
       column(

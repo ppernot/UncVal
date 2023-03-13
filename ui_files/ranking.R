@@ -1,7 +1,7 @@
 sidebarLayout(
   sidebarPanel(
     width = sideWidth,
-    h4("Ranking-based validation"),
+    h4("Confidence Curve"),
     hr(style="border-color: #666;"),
     checkboxGroupInput(
       'choicesRank',

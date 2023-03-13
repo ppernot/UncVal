@@ -64,8 +64,8 @@ output$methodTight <- renderUI({
         'methodTight',
         label = 'Variance-based analysis',
         choices = list(
+          'Local Z-Inv-SD'        = 'LZISD',
           'Local Z-Variance'      = 'LZV',
-          'Local Z-Inv.-SD'       = 'LZISD',
           'Reliability Diagram'   = 'RD'),
         selected = NULL
       )
@@ -113,6 +113,7 @@ output$plotTightness <- renderPlot({
 
       ErrViewLib::plotRelDiag(
         uE, E,
+        unit = paste0(' [',dataUnits(),']'),
         logX = 'logX' %in% input$choicesTight,
         equiPop = input$equiPopTight,
         popMin = input$popMinTight,
@@ -130,6 +131,9 @@ output$plotTightness <- renderPlot({
       if('xV' %in% input$choicesTight & !is.null(V)) {
         X = V
         xlab = paste0('Calculated Value, V [',dataUnits(),']')
+      } else if('xX' %in% input$choicesTight & !is.null(Xi)) {
+        X = Xi
+        xlab = 'Input feature, X'
       }
       if(input$methodTight == 'LZV')
         ErrViewLib::plotLZV(
